@@ -3,8 +3,8 @@
   import cn from "clsx";
   import type { Todo } from "$lib/types";
   import { createSwitch, melt } from "@melt-ui/svelte";
-  import { flip } from "svelte/animate";
   import { fade } from "svelte/transition";
+  import { flip } from "svelte/animate";
 
   let text = "";
   let todos: Todo[] = [];
@@ -31,40 +31,38 @@
       />
     </form>
 
-    <div class="p-4 flex-s-between text-sm fw-semibold">
-      <h1 class="">Todos</h1>
+    <div class="p-4 flex-s-between">
+      <h1 class="text-sm fw-semibold">Todos</h1>
 
       <div class="flex-s-center gap-2">
-        <label class="lh-none" for="airplane-mode">Show Completed</label>
         <button
           use:melt={$root}
-          class="relative h-6 w-11 br-full bg-neutral-2 transition-colors
-          data-[state=checked]:bg-neutral-8"
-          id="airplane-mode"
+          class="relative h-5 w-8 br-full bg-neutral-2 transition-colors
+          flex-s-start data-[state=checked]:bg-neutral-8"
+          id="completed"
         >
           <span
             class={cn(
-              "block square-5 br-full bg-white",
+              "block square-4 br-full bg-white",
               "transition-transform will-change-transform",
-              $showCompleted ? "translate-x-22px" : "translate-x-0.5"
+              $showCompleted ? "translate-x-14px" : "translate-x-0.5"
             )}
           />
           <input use:melt={$input} />
         </button>
+        <label class="text-neutral-8" for="completed">Completed</label>
       </div>
     </div>
 
     <hr />
 
     <!-- TODOS LIST -->
-    <ul class="p-4 flex flex-col gap-2">
-      {#each todos.filter(v => {
-        if ($showCompleted) {
-          return v.completed === true;
-        }
-        return true;
-      }) as todo (todo.id)}
-        <li transition:fade={{ duration: 250 }} animate:flip={{ duration: 250 }}>
+    <ul class="p-4 flex flex-col gap-1">
+      {#each todos.filter( v => ($showCompleted ? v.completed === true : true) ) as todo (todo.id)}
+        <li
+          transition:fade={{ duration: 250 }}
+          animate:flip={{ duration: 250 }}
+        >
           <TodoItem
             {todo}
             on:toggleComplete={({ detail: { checked } }) => {

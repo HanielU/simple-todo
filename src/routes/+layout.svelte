@@ -3,6 +3,6 @@
   import "uno.css"; // https://github.com/unocss/unocss/tree/main/packages/vite#installation
 </script>
 
-<div class="h-full w-full">
+<div class="square-full">
   <slot />
 </div>

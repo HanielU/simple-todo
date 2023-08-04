@@ -1,4 +1,5 @@
 <script lang="ts">
+  import cn from "clsx";
   import type { Todo } from "$lib/types";
   import { createCheckbox, melt } from "@melt-ui/svelte";
   import { createEventDispatcher } from "svelte";
@@ -19,13 +20,17 @@
   $: dispatch("toggleComplete", { checked: <boolean>$checked });
 </script>
 
-<div class="flex-s-start gap-2 bg-neutral-2 p-2 br-lg">
-  <button class="square-18px flex-s-center br-md b-(2 neutral)" use:melt={$root}>
-    {#if $isChecked}
-      <div class="i-mdi-check text-(sm neutral-6)" />
-    {/if}
+<div class="flex-s-start gap-2 bg-neutral-1 p-4 br-lg">
+  <button
+    class={cn(
+      "square-12px flex-s-center br-4px b-(2 neutral)",
+      $isChecked && "bg-neutral-8"
+    )}
+    use:melt={$root}
+    id={todo.id}
+  >
     <input use:melt={$input} />
   </button>
 
-  <span>{todo.text}</span>
+  <label class="text-15px/1rem fw-medium" for={todo.id}>{todo.text}</label>
 </div>
