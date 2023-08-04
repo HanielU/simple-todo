@@ -1,4 +1,4 @@
-import adapter from "@sveltejs/adapter-static";
+import adapter from "@sveltejs/adapter-vercel";
 import sequence from "svelte-sequential-preprocessor";
 import { preprocessMeltUI } from "@melt-ui/pp";
 import { vitePreprocess } from "@sveltejs/kit/vite";
